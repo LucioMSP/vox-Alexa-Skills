@@ -1,0 +1,83 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "ejemplo multimodal",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HolaMundoIntent",
+                    "slots": [
+                        {
+                            "name": "nombre",
+                            "type": "AMAZON.FirstName",
+                            "samples": [
+                                "me llamo {nombre}",
+                                "{nombre}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "dame un saludo",
+                        "salúdame"
+                    ]
+                },
+                {
+                    "name": "ImagenIntent",
+                    "slots": [],
+                    "samples": [
+                        "muestrame una imagen",
+                        "imagen"
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "HolaMundoIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "nombre",
+                            "type": "AMAZON.FirstName",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.666209592402.794048786262"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.666209592402.794048786262",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿cómo te llamas?"
+                    }
+                ]
+            }
+        ]
+    }
+}
