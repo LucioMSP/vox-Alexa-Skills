@@ -11,10 +11,22 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Bienvenido a Ejemplo Multimodal, puedes decirme, dame un saludo, salúdame, o también puedes pedirme una imagen ¿Qué elijes?';
+        const speechText = 'Bienvenido a ejemplo Multimodal, lo siento éste dispositivo no tiene capacidades APL, solo te daré audio';
+		
+		 // Verifica que el dispositivo tenga soporte APL.
+        /*if (!supportsAPL(handlerInput)) {
+          return handlerInput.responseBuilder
+            .speak(speechText)
+            .withSimpleCard('Ejemplo Multimodal', 'Este dispositivo No soporta APL')
+            .reprompt('Qué Elijes?')
+            .getResponse();
+        }*/
+		
+		speechText = 'Bienvenido a Ejemplo Multimodal, puedes decirme, dame un saludo, salúdame, o también puedes pedirme una imagen ¿Qué elijes?';
+		
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Ejemplo Multimodal')
+            .withSimpleCard('Ejemplo Multimodal', ')
             .reprompt('¿Qué elijes?')
             /*.addDirective({
                 type: 'Alexa.Presentation.APL.RenderDocument',
@@ -41,6 +53,60 @@ const HolaMundoIntentHandler = {
             .getResponse();
     }
 };
+
+/*const ImagenIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'ImagenIntent';
+    },
+    handle(handlerInput) {
+        const speechText = 'Lo siento no es posible mostrarte una imagen! ';
+		
+		 // Verifica que el dispositivo tenga soporte APL.
+        if (!supportsAPL(handlerInput)) {
+          return handlerInput.responseBuilder
+            .speak(speechText)
+            .withSimpleCard('Ejemplo Multimodal', 'Este dispositivo No soporta APL')
+            .reprompt('Qué Elijes?')
+            .getResponse();
+        }
+		speechText = 'Hola, aquí te muestro una imagen!';
+        return handlerInput.responseBuilder
+            .speak(speechText)  
+            .withShouldEndSession(true)
+            .addDirective({
+                type: 'Alexa.Presentation.APL.RenderDocument',
+                version: '1.0',
+                document: require('./main.json'),
+                datasources: {
+                    "bodyTemplate7Data": {
+                        "type": "object",
+                        "objectId": "bt7Sample",
+                        "title": "Mostrando Imagen",
+                        "image": {
+                            "sources": [
+                            {
+                                "url": "https://s3.amazonaws.com/cf-templates-5yg2seszglqg-us-east-1/screen_1.jpg",
+                                "size": "small",
+                                "widthPixels": 0,
+                                "heightPixels": 0
+                            },
+                            {
+                                "url": "https://s3.amazonaws.com/cf-templates-5yg2seszglqg-us-east-1/screen_1.jpg",
+                                "size": "large",
+                                "widthPixels": 0,
+                                "heightPixels": 0
+                            }
+                            ]
+                        },
+                        "logoUrl": "",
+                        "hintText": "Dime, \"Alexa, Salúdame\""
+                    }
+                }
+            })
+            .getResponse();
+    }
+};*/
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -112,6 +178,13 @@ const ErrorHandler = {
     }
 };
 
+// Comprueba si el dispositivo en uso soporta APL.
+function supportsAPL(handlerInput) {
+  const supportedInterfaces = handlerInput.requestEnvelope.context.System.device.supportedInterfaces;
+  const aplInterface = supportedInterfaces['Alexa.Presentation.APL'];
+  return aplInterface !== null && aplInterface !== undefined;
+}
+
 // Entrada de la skill, se encarga de enrutar todas las peticiones.
 // Aquí deben existir todos los handlers e interceptores.
 /*************************************************************
@@ -121,7 +194,8 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        HolaMundoIntentHandler,        
+        HolaMundoIntentHandler, 
+        //ImagenIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
