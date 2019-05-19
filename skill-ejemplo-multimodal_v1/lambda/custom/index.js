@@ -29,12 +29,12 @@ const LaunchRequestHandler = {
             .speak(speechText)
             .withSimpleCard('Ejemplo Multimodal', 'Con APL')
             .reprompt('¿Qué elijes?')
-            .addDirective({
+            /*.addDirective({
                 type: 'Alexa.Presentation.APL.RenderDocument',
                 version: '1.0',
                 document: require('./welcome.json'),
                 datasources: {}
-            })
+            })*/
             .getResponse();
     }
 };
