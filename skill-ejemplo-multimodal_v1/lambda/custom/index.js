@@ -11,10 +11,11 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Bienvenido a ejemplo Multimodal, lo siento éste dispositivo no tiene capacidades APL, solo te daré audio';
+        var speechText = '';
 		
 		 // Verifica que el dispositivo tenga soporte APL.
-        /*if (!supportsAPL(handlerInput)) {
+       /* if (!supportsAPL(handlerInput)) {
+		  speechText = 'Bienvenido a ejemplo Multimodal, lo siento éste dispositivo no tiene capacidades APL, solo te daré audio';
           return handlerInput.responseBuilder
             .speak(speechText)
             .withSimpleCard('Ejemplo Multimodal', 'Este dispositivo No soporta APL')
@@ -26,14 +27,14 @@ const LaunchRequestHandler = {
 		
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Ejemplo Multimodal', ')
+            .withSimpleCard('Ejemplo Multimodal', 'Con APL')
             .reprompt('¿Qué elijes?')
-            /*.addDirective({
+            .addDirective({
                 type: 'Alexa.Presentation.APL.RenderDocument',
                 version: '1.0',
                 document: require('./welcome.json'),
                 datasources: {}
-            })*/
+            })
             .getResponse();
     }
 };
@@ -60,7 +61,7 @@ const HolaMundoIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'ImagenIntent';
     },
     handle(handlerInput) {
-        const speechText = 'Lo siento no es posible mostrarte una imagen! ';
+        var speechText = 'Lo siento no es posible mostrarte una imagen! ';
 		
 		 // Verifica que el dispositivo tenga soporte APL.
         if (!supportsAPL(handlerInput)) {
@@ -179,11 +180,11 @@ const ErrorHandler = {
 };
 
 // Comprueba si el dispositivo en uso soporta APL.
-function supportsAPL(handlerInput) {
+/*function supportsAPL(handlerInput) {
   const supportedInterfaces = handlerInput.requestEnvelope.context.System.device.supportedInterfaces;
   const aplInterface = supportedInterfaces['Alexa.Presentation.APL'];
   return aplInterface !== null && aplInterface !== undefined;
-}
+}*/
 
 // Entrada de la skill, se encarga de enrutar todas las peticiones.
 // Aquí deben existir todos los handlers e interceptores.
